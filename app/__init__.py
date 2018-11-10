@@ -1,4 +1,8 @@
 from flask import Flask
- # Initializing application
+#Initializing application
 app = Flask(__name__)
- from app import views
+
+#Setting up configuration
+app.config.from_object(DevConfig)
+
+from app import views
