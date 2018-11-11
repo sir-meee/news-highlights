@@ -11,9 +11,16 @@
     </head>
     <body>
        <!-- Popular movie section  -->
-       <h3>Top News Stories</h3>
+      <h3>Top News Stories</h3>
       <ul>
           {% import 'macros.html' as macro%}
+      </ul>
+      <h2>Categories</h2>
+      <h3>Business news</h3>
+      <ul>
+         {% for biz_article in biz %}
+             <li>{{ biz_article.name}}</li>
+         {% endfor %}
       </ul>
     </body>
 </html>
