@@ -1,0 +1,6 @@
+{% macro displayTopNews(topnews_list)%}
+  {% for topnews in topnews_list %}
+    <img src={{topnews.urlToImage}} style="width:250px;height:100px">
+      <li>{{topnews.title}}</li>
+  {% endfor %}
+{%endmacro%} 
