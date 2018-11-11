@@ -18,27 +18,18 @@
       <h2>Categories</h2>
       <h3>Business news</h3>
       <ul>
-         {% for biz_article in biz %}
-             <li>{{ biz_article.name}}</li>
-         {% endfor %}
+          {{ macro.displayCatNews(biz)}}
       </ul>
       <h3>Technology news</h3>
       <ul>
-         {% for tech_article in tech %}
-              <li>{{ tech_article.name}}</li>
-         {% endfor %}
+          {{ macro.displayCatNews(tech)}}
       </ul>
       <h3>Entertainment news</h3>
       <ul>
-         {% for ent_article in ent %}
-             <li>{{ ent_article.name}}</li>
-         {% endfor %}
+          {{ macro.displayCatNews(ent)}}
       </ul>
       <h3>Sports news</h3>
       <ul>
-         {% for sprt_article in sprt %}
-             <li>{{ sprt_article.name}}</li>
-         {% endfor %}
-      </ul>
+          {{ macro.displayCatNews(sprt)}}
     </body>
 </html>
