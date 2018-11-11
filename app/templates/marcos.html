@@ -1,13 +1,12 @@
-{% macro displayTopNews(topnews_list)%}
-  {% for topnews in topnews_list %}
-    <img src={{topnews.urlToImage}} style="width:250px;height:100px">
-      <li>{{topnews.title}}</li>
-      <a href={{topnews.url}}>Read full story</a>
-  {% endfor %}
-{%endmacro%}
-{% macro displayCatNews(catnews_list)%}
-  {% for catnews in catnews_list %}
-     <li>{{catnews.name}}</li>
-     <a href="/update/{{catnews.id}}">View</a>
-  {% endfor %}
-  {%endmacro%} 
+{% for catnews in catnews_list %}
+<div class="col-md-3">
+    <div class="thumbnail">
+        <div class="updates">
+            <p>{{catnews.name}}</p>
+            <p>{{catnews.description | truncate(50)}}</p>
+            <a href="/update/{{catnews.id}}">View</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+ {%endmacro%} 
