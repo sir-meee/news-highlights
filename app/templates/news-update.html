@@ -1,13 +1,16 @@
+{% extends 'base.html'%}
 <!DOCTYPE html>
 <html>
     <head>
     </head>
     <body>
-       
+    <!-- Content block -->
+    {% block content %} 
          <ul>
             {% for detz_article in detz %}
                 <li>{{detz_article.title}}</li>
             {% endfor %}
         </ul>
+    {% endblock%}
     </body>
 </html>
