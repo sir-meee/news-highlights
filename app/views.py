@@ -10,6 +10,9 @@ def index():
      #Getting top news and categorically arranged news
      top_articles = get_topnews('google-news')
      print(top_articles)
-     biz_ biz_articles = get_catnews('business')articles = get_catnews('business')
+     biz_articles = get_catnews('business')
+     tech_articles = get_catnews('technology')
+     ent_articles = get_catnews('entertainment')
+     sprt_articles = get_catnews('sports')
      title = 'Home -Get breaking news headlines, and search for articles from over 30,000 news sources and blogs'
-     return render_template('index.html', title = title, google_news = top_articles, biz = biz_articles)
+     return render_template('index.html', title = title, google_news = top_articles, biz = biz_articles, tech = tech_articles, ent = ent_articles, sprt = sprt_articles)
