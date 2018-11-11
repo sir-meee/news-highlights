@@ -9,5 +9,14 @@
         {% endif %}
     </head>
     <body>
-     </body>
+       <!-- Popular movie section  -->
+       <h3>Top News Stories</h3>
+      <ul>
+          {% for top_article in google_news %}
+          <img src={{top_article.urlToImage}} style="width:250px;height:100px">
+              <li>{{ top_article.title}}</li>
+              
+          {% endfor %}
+      </ul>
+    </body>
 </html>
