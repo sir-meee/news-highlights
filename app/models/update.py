@@ -1,6 +1,6 @@
 class Update:
     """
-    catnews class to define catnews objects
+    update class to define catnews objects
     """
     def __init__(self, id, author, title, description, url, urlToImage):
         self.id = id

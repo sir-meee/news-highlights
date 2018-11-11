@@ -2,10 +2,12 @@
   {% for topnews in topnews_list %}
     <img src={{topnews.urlToImage}} style="width:250px;height:100px">
       <li>{{topnews.title}}</li>
+      <a href={{topnews.url}}>Read full story</a>
   {% endfor %}
 {%endmacro%}
 {% macro displayCatNews(catnews_list)%}
   {% for catnews in catnews_list %}
      <li>{{catnews.name}}</li>
+     <a href="/update/{{catnews.id}}">View</a>
   {% endfor %}
-{%endmacro%} 
+  {%endmacro%} 

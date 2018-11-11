@@ -1,9 +1,10 @@
 from app import app
 import urllib.request,json
-from .models import topnews, catnews
+from .models import topnews, catnews, update
 
 Topnews = topnews.Topnews
 Catnews = catnews.Catnews
+Update = update.Update
  
  # Getting api key
 api_key = app.config['NEWS_API_KEY']
@@ -81,30 +82,31 @@ t:
             catnews_results.append(catnews_object)
     return catnews_results  
 
-def get_update(source):
+def get_updates(id):
     """
     Function that gets the json response to our url request
     """
-    get_update_url = base3_url.format(source,api_key)
-    with urllib.request.urlopen(get_update_url) as url:
-        get_update_data = url.read()
-        get_update_response = json.loads(get_update_data)
-        print(get_update_response)
-        update_results = None
-        if get_update_response['articles']:
-            update_results_list = get_update_response['articles']
-            update_results = process3_results(update_results_list)
-    return topnews_results
-def process3_results(update_list):
+    get_updates_url = base3_url.format(id,api_key)
+    print(get_updates_url)
+    with urllib.request.urlopen(get_updates_url) as url:
+        get_updates_data = url.read()
+        get_updates_response = json.loads(get_updates_data)
+        print(get_updates_response)
+        updates_results = None
+        if get_updates_response['articles']:
+            updates_results_list = get_updates_response['articles']
+            updates_results = process3_results(updates_results_list)
+    return updates_results
+def process3_results(updates_list):
     '''
     Function  that processes the update result and transform them to a list of Objects
      Args:
-        update_list: A list of dictionaries that contain category news' details
+        updates_list: A list of dictionaries that contain category news' details
      Returns :
-        update_results: A list of update objects
+        updates_results: A list of update objects
     '''
-    update_results = []
-    for update_item in update_list:
+    updates_results = []
+    for update_item in updates_list:
         id = update_item.get('id')
         author = update_item.get('author')
         title = update_item.get('title')
@@ -112,7 +114,8 @@ def process3_results(update_list):
         url = update_item.get('url')
         urlToImage = update_item.get('urlToImage')
        
-        if urlToImage:
-          update_object = Update(id,author,title,description,url,urlToImage)
-          update_results.append(update_object)
-    return update_results
+        updates_object = Update(id,author,title,description,url,urlToImage)
+        updates_results.append(updates_object)
+        
+        
+    return updates_results
