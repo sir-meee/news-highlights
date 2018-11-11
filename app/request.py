@@ -11,6 +11,8 @@ api_key = app.config['NEWS_API_KEY']
  # Getting top news base url
 base_url = app.config["TOPNEWS_API_BASE_URL"] 
 base2_url = app.config["CATEGORIES_API_BASE_URL"]
+base3_url = app.config["ARTICLES_BASE_URL"]
+
 def get_topnews(source):
     """
     Function that gets the json response to our url request
@@ -79,3 +81,38 @@ t:
             catnews_results.append(catnews_object)
     return catnews_results  
 
+def get_update(source):
+    """
+    Function that gets the json response to our url request
+    """
+    get_update_url = base3_url.format(source,api_key)
+    with urllib.request.urlopen(get_update_url) as url:
+        get_update_data = url.read()
+        get_update_response = json.loads(get_update_data)
+        print(get_update_response)
+        update_results = None
+        if get_update_response['articles']:
+            update_results_list = get_update_response['articles']
+            update_results = process3_results(update_results_list)
+    return topnews_results
+def process3_results(update_list):
+    '''
+    Function  that processes the update result and transform them to a list of Objects
+     Args:
+        update_list: A list of dictionaries that contain category news' details
+     Returns :
+        update_results: A list of update objects
+    '''
+    update_results = []
+    for update_item in update_list:
+        id = update_item.get('id')
+        author = update_item.get('author')
+        title = update_item.get('title')
+        description = update_item.get('description')
+        url = update_item.get('url')
+        urlToImage = update_item.get('urlToImage')
+       
+        if urlToImage:
+          update_object = Update(id,author,title,description,url,urlToImage)
+          update_results.append(update_object)
+    return update_results
