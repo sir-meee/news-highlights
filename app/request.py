@@ -22,3 +22,23 @@ def get_topnews(source):
             topnews_results_list = get_topnews_response['results']
             topnews_results = process_results(topnews_results_list)
     return topnews_results
+def process_results(topnews_list):
+    '''
+    Function  that processes the topnews result and transform them to a list of Objects
+    Args:
+    topnews_list: A list of dictionaries that contain topnews details
+    Returns :
+    topnews_results: A list of topnews objects
+    '''
+    topnews_results = []
+    for topnews_item in topnews_list:
+        name = topnews_item.get('name')
+        title = topnews_item.get('title')
+        author = topnews_item.get('author')
+        description = topnews_item.get('description')
+        urlToImage = topnews_item.get('urlToImage')
+        url = topnews_item.get('url')
+        if poster:
+          topnews_object = Topnews(name,title,author,description,urlToImage,url)
+          topnews_results.append(topnews_object)
+    return topnews_results
