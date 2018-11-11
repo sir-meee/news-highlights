@@ -22,5 +22,23 @@
              <li>{{ biz_article.name}}</li>
          {% endfor %}
       </ul>
+      <h3>Technology news</h3>
+      <ul>
+         {% for tech_article in tech %}
+              <li>{{ tech_article.name}}</li>
+         {% endfor %}
+      </ul>
+      <h3>Entertainment news</h3>
+      <ul>
+         {% for ent_article in ent %}
+             <li>{{ ent_article.name}}</li>
+         {% endfor %}
+      </ul>
+      <h3>Sports news</h3>
+      <ul>
+         {% for sprt_article in sprt %}
+             <li>{{ sprt_article.name}}</li>
+         {% endfor %}
+      </ul>
     </body>
 </html>
