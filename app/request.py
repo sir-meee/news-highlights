@@ -1,18 +1,21 @@
 from app import app
 import urllib.request,json
-from .models import topnews, catnews, update
-
-Topnews = topnews.Topnews
-Catnews = catnews.Catnews
-Update = update.Update
+from .models import Topnews, Catnews, Update
  
  # Getting api key
-api_key = app.config['NEWS_API_KEY']
+api_key = None
 
  # Getting top news base url
-base_url = app.config["TOPNEWS_API_BASE_URL"] 
-base2_url = app.config["CATEGORIES_API_BASE_URL"]
-base3_url = app.config["ARTICLES_BASE_URL"]
+base_url = None 
+base2_url = None
+base3_url = None
+
+def configure_request(app):
+    global api_key,base_url,base2_url,base3_url
+    api_key = app.config['NEWS_API_KEY']
+    base_url = app.config["TOPNEWS_API_BASE_URL"] 
+    base2_url = app.config["CATEGORIES_API_BASE_URL"]
+    base3_url = app.config["ARTICLES_BASE_URL"]
 
 def get_topnews(source):
     """
