@@ -1,6 +1,6 @@
 import unittest
-from models import catnews
-Catnews = catnews.Catnews
+from app.models import Catnews
+
  
 class CatnewsTest(unittest.TestCase):
     '''
@@ -13,5 +13,4 @@ class CatnewsTest(unittest.TestCase):
         self.new_catnews = Catnews('engadget','Engadget','NY times under fire','www.foxnews.com')
     def test_instance(self):
         self.assertTrue(isinstance(self.new_catnews,Catnews))
-        if __name__ == '__main__':
-           unittest.main() 
+        
