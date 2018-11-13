@@ -3,6 +3,7 @@
  This app allows you to get top headlines news and news based on four categories as well: Business news, Technology news, Sports news and Entertainment news.
  
  # Live site : 
+ https://news-highlightz.herokuapp.com/
  
  
  ### Prerequisites
