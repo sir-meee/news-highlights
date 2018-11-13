@@ -1,18 +1,18 @@
 import urllib.request,json
 from .models import Topnews, Catnews, Update
- 
- # Getting api key
+
+# Getting api key
 api_key = None
 
- # Getting top news base url
-base_url = None 
+# Getting the news api base urls
+base_url = None
 base2_url = None
 base3_url = None
 
 def configure_request(app):
     global api_key,base_url,base2_url,base3_url
     api_key = app.config['NEWS_API_KEY']
-    base_url = app.config["TOPNEWS_API_BASE_URL"] 
+    base_url = app.config["TOPNEWS_API_BASE_URL"]
     base2_url = app.config["CATEGORIES_API_BASE_URL"]
     base3_url = app.config["ARTICLES_BASE_URL"]
 
@@ -21,21 +21,26 @@ def get_topnews(source):
     Function that gets the json response to our url request
     """
     get_topnews_url = base_url.format(source,api_key)
+
     with urllib.request.urlopen(get_topnews_url) as url:
         get_topnews_data = url.read()
         get_topnews_response = json.loads(get_topnews_data)
+        print(get_topnews_response)
         topnews_results = None
+
         if get_topnews_response['articles']:
             topnews_results_list = get_topnews_response['articles']
             topnews_results = process_results(topnews_results_list)
+
     return topnews_results
+
 def process_results(topnews_list):
     '''
     Function  that processes the topnews result and transform them to a list of Objects
     Args:
-    topnews_list: A list of dictionaries that contain topnews details
+        topnews_list: A list of dictionaries that contain topnews details
     Returns :
-    topnews_results: A list of topnews objects
+        topnews_results: A list of topnews objects
     '''
     topnews_results = []
     for topnews_item in topnews_list:
@@ -45,29 +50,37 @@ def process_results(topnews_list):
         description = topnews_item.get('description')
         urlToImage = topnews_item.get('urlToImage')
         url = topnews_item.get('url')
+
         if urlToImage:
-          topnews_object = Topnews(name,title,author,description,urlToImage,url)
-          topnews_results.append(topnews_object)
+            topnews_object = Topnews(name,author,title,description,urlToImage,url)
+            topnews_results.append(topnews_object)
+
     return topnews_results
+
+
 
 def get_catnews(category):
     """
     Function that gets the json response to our url request
     """
     get_catnews_url = base2_url.format(category,api_key)
+
     with urllib.request.urlopen(get_catnews_url) as url:
         get_catnews_data = url.read()
         get_catnews_response = json.loads(get_catnews_data)
         print(get_catnews_response)
         catnews_results = None
+
         if get_catnews_response['sources']:
             catnews_results_list = get_catnews_response['sources']
             catnews_results = process2_results(catnews_results_list)
+
     return catnews_results
+
 def process2_results(catnews_list):
     '''
     Function  that processes the catnews result and transform them to a list of Objects
-     Args:
+    Args:
         catnews_lis A list of dictionaries that contain catnews details
 t:
     Returns :
@@ -79,32 +92,37 @@ t:
         name = catnews_item.get('name')
         description = catnews_item.get('description')
         url = catnews_item.get('url')
+
         if id:
             catnews_object = Catnews(id,name,description,url)
             catnews_results.append(catnews_object)
-    return catnews_results  
 
+    return catnews_results
 def get_updates(id):
     """
     Function that gets the json response to our url request
     """
     get_updates_url = base3_url.format(id,api_key)
     print(get_updates_url)
+
     with urllib.request.urlopen(get_updates_url) as url:
         get_updates_data = url.read()
         get_updates_response = json.loads(get_updates_data)
-        print(get_updates_response)
+       
         updates_results = None
+
         if get_updates_response['articles']:
             updates_results_list = get_updates_response['articles']
             updates_results = process3_results(updates_results_list)
+
     return updates_results
+
 def process3_results(updates_list):
     '''
     Function  that processes the update result and transform them to a list of Objects
-     Args:
+    Args:
         updates_list: A list of dictionaries that contain category news' details
-     Returns :
+    Returns :
         updates_results: A list of update objects
     '''
     updates_results = []
@@ -116,9 +134,8 @@ def process3_results(updates_list):
         url = update_item.get('url')
         urlToImage = update_item.get('urlToImage')
         publishedAt = update_item.get('publishedAt')
-        
-        updates_object = Update(id,author,title,description,url,urlToImage, publishedAt)
+       
+        updates_object = Update(id,author,title,description,url,urlToImage,publishedAt)
         updates_results.append(updates_object)
-        
-        
+
     return updates_results
